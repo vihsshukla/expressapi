@@ -15,6 +15,10 @@ app.use((req,res,next)=>{
   next();
 })
 
+app.get('/',(req,res)=>{
+  res.send('Hello I am API let me know what to do.');
+})
+
 app.use('/getCandidates',require(path.join(__dirname,'routes/fetch.js')));
 app.use('/addCandidates',require(path.join(__dirname,'routes/insert.js')));
 app.use('/updateCandidateStatus',require(path.join(__dirname,'routes/update.js')));
