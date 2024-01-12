@@ -18,8 +18,8 @@ app.use((req,res,next)=>{
   next();
 })
 
-app.get('/.well-known/pki-validation/05A2E4A9BD43066B912E50642F9EE3F9.txt',(req,res)=>{
-  res.sendFile(path.join(__dirname,'./05A2E4A9BD43066B912E50642F9EE3F9.txt'));
+app.get('/.well-known/pki-validation/F4E6B850DE4D3A8576DB98E409634D5B.txt',(req,res)=>{
+  res.sendFile(path.join(__dirname,'./F4E6B850DE4D3A8576DB98E409634D5B.txt'));
 })
 
 app.get('/',(req,res)=>{
