@@ -7,24 +7,17 @@ const app=express();
 
 const port=process.env.PORT;
 
-const corsOptions = {
-  origin: 'https://main.dyuj0rbybsgvr.amplifyapp.com/',
-  optionsSuccessStatus: 200, 
-};
+app.use(express.static('public'));
 
 app.use(express.json());
 
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.disable('etag');
 
 app.use((req,res,next)=>{
   console.log(req.body);
   next();
-})
-
-app.get('/.well-known/pki-validation/F4E6B850DE4D3A8576DB98E409634D5B.txt',(req,res)=>{
-  res.sendFile(path.join(__dirname,'./F4E6B850DE4D3A8576DB98E409634D5B.txt'));
 })
 
 app.get('/',(req,res)=>{
