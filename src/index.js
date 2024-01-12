@@ -7,9 +7,14 @@ const app=express();
 
 const port=process.env.PORT;
 
+const corsOptions = {
+  origin: 'https://main.dyuj0rbybsgvr.amplifyapp.com/',
+  optionsSuccessStatus: 200, 
+};
+
 app.use(express.json());
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.disable('etag');
 
