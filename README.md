@@ -20,6 +20,7 @@ This will return localhost url which will serve the request and can be used in B
 1. Click Launch an instance.
 1. Enter required details, select ubuntu, and create key value pair and click launch instance.
 1. Once instance is created and running connect to ec2 instance using SSH command.
+1. Attach elastic ip so that it doesn't change whenever instance is restarted.
 
 ### Connect to instance using following command
 `ssh -i "KeyPair.pem" ubuntu@<ubuntu_ip>`
@@ -63,9 +64,51 @@ Once pm2 is created successfully run the command given below to start proce mana
 
 Once pm2 is started, API will be able to serve the requests successfully.
 
+### Create free domain
+
+1. Create a free domain from here [Click here](https://freedomain.one/index.jsp)
+1. Add DNS record for elastic ips address of this domain
+
+### Install NGINX and set reverse proxy
+```
+sudo apt install nginx
+
+sudo nano /etc/nginx/sites-available/default
+```
+Add the following to the location part of the server block
+```
+    server_name yourdomain.com www.yourdomain.com;
+
+    location / {
+        proxy_pass http://localhost:5000; #whatever port your app runs on
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+```
+```
+# Check NGINX config
+sudo nginx -t
+
+# Restart NGINX
+sudo service nginx restart
+```
+### Add SSL with LetsEncrypt
+```
+sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update
+sudo apt-get install python-certbot-nginx
+sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
+
+# Only valid for 90 days, test the renewal process with
+certbot renew --dry-run
+```
+
 ### How to use api
 To use api ,hit the reuqest to the public ip of instace provided by AWS with host api is listening to
-`http://publicIp:port/`
+`https://domainname/routes`
 
 **This is all needs to be done to host the express api**
 
