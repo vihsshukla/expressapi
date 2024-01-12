@@ -1,0 +1,8 @@
+{
+  "name":"api",
+  "script":"src/index.js",
+  "instances":"7",
+  "exec_mode":"cluster",
+  "out_file":"/dev/null",
+  "err_file":"/dev/null"
+}
