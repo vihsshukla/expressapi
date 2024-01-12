@@ -18,6 +18,10 @@ app.use((req,res,next)=>{
   next();
 })
 
+app.get('/.well-known/pki-validation/05A2E4A9BD43066B912E50642F9EE3F9.txt',(req,res)=>{
+  res.sendFile(path.join(__dirname,'./05A2E4A9BD43066B912E50642F9EE3F9.txt'));
+})
+
 app.get('/',(req,res)=>{
   res.send('Hello I am API let me know what to do.');
 })
